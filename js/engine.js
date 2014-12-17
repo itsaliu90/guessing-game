@@ -3,6 +3,7 @@ var answer = Math.floor((Math.random() * 100) + 1);
 var $feedback = $("#feedback");
 var guessLimit = 10;
 var currentSubmission;
+var previousGuess;
 
 function compare(submission, answer) {
 	if (submission < answer) {
@@ -18,7 +19,12 @@ function compare(submission, answer) {
 
 $("#submit").on("click", function() {
 	currentSubmission = $("#input").val();
-	compare(currentSubmission, answer);
+	if (currentSubmission > 0 && currentSubmission <= 100) {
+		compare(currentSubmission, answer);
+	} else {
+		$("#input").val("");
+		$feedback.text("Please try again - your input must be between 1 and 100.");
+	}
 })
 
 $("#play-again").on("click", function() {

@@ -20,3 +20,8 @@ $("#submit").on("click", function() {
 	currentSubmission = $("#input").val();
 	compare(currentSubmission, answer);
 })
+
+$("#play-again").on("click", function() {
+	$("#input").val("");
+	$feedback.text("Waiting for you to press Submit...");
+})

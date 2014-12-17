@@ -25,3 +25,8 @@ $("#play-again").on("click", function() {
 	$("#input").val("");
 	$feedback.text("Waiting for you to press Submit...");
 })
+
+$("#hint").on("click", function() {
+	$("#input").val("");
+	$feedback.text("The answer is " + answer + ". Hope you play again!");
+})

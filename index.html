@@ -20,17 +20,21 @@
     <h1>Number Guessing Game</h1>
     <form role="form">
       <div class="form-group">
-        <input id="input" type="text" class="form-control" placeholder="Enter guess here...between 1 and 100">
+        <input id="input" type="text" class="form-control" placeholder="Enter a guess between 1 and 100 here">
       </div>
     </form>
 
     <div>
-      <p><span id="feedback">Waiting for you to press Submit...</span></p>
+      <p>You have <span id="guesses"></span> guesses remaining.</p>
     </div>
 
-    <button id="submit" type="button" class="btn btn-success">Submit</button>
+    <div>
+      <p><b><span id="feedback"></span></b></p>
+    </div>
+
+    <button id="submit" type="button" class="btn btn-success">Try It!</button>
     <button id="play-again" type="button" class="btn btn-primary">Play Again</button>
-    <button id="hint" type="button" class="btn btn-primary">Give Me a Hint</button>
+    <button id="hint" type="button" class="btn btn-danger">I Give Up</button>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

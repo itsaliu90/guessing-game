@@ -5,6 +5,7 @@ var $feedback = $("#feedback");
 var guessLimit = 5;
 var remainingGuesses = 5;
 var previousGuessesArray = [];
+var previousGuessesString
 var currentSubmission;
 
 // perform upon html page load
@@ -43,6 +44,18 @@ function giveFeedback(submission, answer) {
 	}
 }
 
+function updatePreviousGuesses(number) {
+	previousGuessesArray.push(number);
+	previousGuessesString = previousGuessesArray.join(", ");
+	$("#history").text(previousGuessesString);
+}
+
+function resetPreviousGuesses() {
+	previousGuessesArray = [];
+	previousGuessesString = "";
+	$("#history").text(previousGuessesString);
+}
+
 function decreaseRemainingGuesses() {
 	remainingGuesses -= 1;
 	$("#guesses").text(remainingGuesses);
@@ -54,10 +67,11 @@ function endGame(message) {
 	$feedback.text(message);
 }
 
-function reset(message) {
+function resetGame(message) {
+	remainingGuesses = guessLimit;
+	resetPreviousGuesses();
 	$("#input").val("");
 	$feedback.text(message);
-	remainingGuesses = guessLimit;
 	$("#guesses").text(remainingGuesses);
 	$("#submit").show();
 	$("#hint").show();
@@ -68,13 +82,14 @@ function reset(message) {
 
 $("#submit").on("click", function() {
 	currentSubmission = $("#input").val();
-	previousGuessesArray.push(currentSubmission);
+	updatePreviousGuesses(currentSubmission);
 	if (currentSubmission > 0 && currentSubmission <= 100) {
 		decreaseRemainingGuesses();
 		if (doesGameContinue() === true && isSubmissionCorrect(currentSubmission, answer) === true) {
 			endGame("Nice job guessing " + answer + "! Play again?");
 		} else if (doesGameContinue() === true && isSubmissionCorrect(currentSubmission, answer) === false) {
 			giveFeedback(currentSubmission, answer);
+			$("#input").val("");
 		} else if (doesGameContinue() === false && isSubmissionCorrect(currentSubmission, answer) === true) {
 			endGame("You got " + answer + " on the last go! Play again?");
 		} else {
@@ -87,7 +102,7 @@ $("#submit").on("click", function() {
 });
 
 $("#play-again").on("click", function() {
-	reset("Ready to start when you are...");
+	resetGame("Ready to start when you are...");
 });
 
 $("#hint").on("click", function() {

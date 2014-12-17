@@ -25,14 +25,20 @@
     </form>
 
     <div>
-      <p>You have <span id="guesses"></span> guesses remaining.</p>
+      <p>You have <span id="guesses"></span> guess(es) remaining.</p>
     </div>
 
     <div>
-      <p><b><span id="feedback"></span></b></p>
+      <p>Your previous guess(es) were [ <span id="history"></span> ].</p>
     </div>
 
-    <button id="submit" type="button" class="btn btn-success">Try It!</button>
+    <div>
+      <p>==================================</p>
+      <p><b><span id="feedback"></span></b></p>
+      <p>==================================</p>
+    </div>
+
+    <button id="submit" type="button" class="btn btn-success">Submit!</button>
     <button id="play-again" type="button" class="btn btn-primary">Play Again</button>
     <button id="hint" type="button" class="btn btn-danger">I Give Up</button>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

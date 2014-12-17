@@ -1,21 +1,22 @@
-$(document).ready(function() {
-	var answer = Math.floor((Math.random() * 100) + 1);
-	var currentSubmission;
 
-	function compare(submission, answer) {
-		if (submission < answer) {
-			$("#feedback").text("Your guess is too low, bro!");
-		} else if (submission > answer) {
-			$("#feedback").text("Your guess is too high, pie!");
-		} else {
-			$("#feedback").text("YOU GOT IT!!!");
-		}
+var answer = Math.floor((Math.random() * 100) + 1);
+var $feedback = $("#feedback");
+var guessLimit = 10;
+var currentSubmission;
+
+function compare(submission, answer) {
+	if (submission < answer) {
+		$feedback.text("Your guess is too low!");
+	} else if (submission > answer) {
+		$feedback.text("Your guess is too high!");
+	} else {
+		$feedback.text("YOU GOT IT!!!");
 	}
+}
 
-	// Event-driven code below
+// Event-driven code below
 
-	$("#submit").on("click", function() {
-		currentSubmission = $("#input").val();
-		compare(currentSubmission, answer);
-	})
-});
+$("#submit").on("click", function() {
+	currentSubmission = $("#input").val();
+	compare(currentSubmission, answer);
+})

@@ -2,8 +2,8 @@
 // initiate variables
 var answer = Math.floor((Math.random() * 100) + 1);
 var $feedback = $("#feedback");
-var guessLimit = 5;
-var remainingGuesses = 5;
+var guessLimit = 10;
+var remainingGuesses = 10;
 var previousGuessesArray = [];
 var previousGuessesString
 var currentSubmission;
@@ -36,7 +36,23 @@ function isSubmissionCorrect(submission, answer) {
 	}
 }
 
-function giveFeedback(submission, answer) {
+function isSubmissionUnique(guessHistoryArray, submission) {
+	if (guessHistoryArray.indexOf(submission) != -1) {
+		return false;
+	} else {return true;}
+}
+
+function giveValidationFeedback() {
+	if (currentSubmission <= 0 || currentSubmission > 100) {
+		$("#input").val("");
+		$feedback.text("Please try again - your input must be between 1 and 100.");
+	} else {
+		$("#input").val("");
+		$feedback.text("Please try again - you have previously guessed that number.");
+	}
+}
+
+function giveGuessFeedback(submission, answer) {
 	if (submission < answer) {
 		$feedback.text("Please try a higher number.");
 	} else {
@@ -82,13 +98,13 @@ function resetGame(message) {
 
 $("#submit").on("click", function() {
 	currentSubmission = $("#input").val();
-	updatePreviousGuesses(currentSubmission);
-	if (currentSubmission > 0 && currentSubmission <= 100) {
+	if (currentSubmission > 0 && currentSubmission <= 100 && isSubmissionUnique(previousGuessesArray, currentSubmission) === true) {
 		decreaseRemainingGuesses();
+		updatePreviousGuesses(currentSubmission);
 		if (doesGameContinue() === true && isSubmissionCorrect(currentSubmission, answer) === true) {
 			endGame("Nice job guessing " + answer + "! Play again?");
 		} else if (doesGameContinue() === true && isSubmissionCorrect(currentSubmission, answer) === false) {
-			giveFeedback(currentSubmission, answer);
+			giveGuessFeedback(currentSubmission, answer);
 			$("#input").val("");
 		} else if (doesGameContinue() === false && isSubmissionCorrect(currentSubmission, answer) === true) {
 			endGame("You got " + answer + " on the last go! Play again?");
@@ -96,8 +112,7 @@ $("#submit").on("click", function() {
 			endGame("Sorry, you lost the game. The correct answer was " + answer + ". Play again?");
 		}
 	} else {
-		$("#input").val("");
-		$feedback.text("Please try again - your input must be between 1 and 100.");
+		giveValidationFeedback();
 	}
 });
 

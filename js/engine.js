@@ -5,7 +5,7 @@ var $feedback = $("#feedback");
 var guessLimit = 10;
 var remainingGuesses = 10;
 var previousGuessesArray = [];
-var previousGuessesString
+var previousGuessesString;
 var currentSubmission;
 
 // perform upon html page load
@@ -52,12 +52,19 @@ function giveValidationFeedback() {
 	}
 }
 
-function giveGuessFeedback(submission, answer) {
-	if (submission < answer) {
-		$feedback.text("Please try a higher number.");
+function giveGuessFeedback(submission, answer, previousGuessesArray) {
+	if (Math.abs(submission - answer) > Math.abs((previousGuessesArray[previousGuessesArray.length - 2]) - answer)) {
+		var hotterOrColder = "colder";
 	} else {
-		$feedback.text("Please try a lower number.");
+		var hotterOrColder = "hotter";
 	}
+
+	if (submission < answer) {
+		var higherOrLower = "higher";
+	} else {
+		var higherOrLower = "lower";
+	}
+	$feedback.text("You are getting " + hotterOrColder + ", please try a " + higherOrLower + " number.");
 }
 
 function updatePreviousGuesses(number) {
@@ -104,7 +111,7 @@ $("#submit").on("click", function() {
 		if (doesGameContinue() === true && isSubmissionCorrect(currentSubmission, answer) === true) {
 			endGame("Nice job guessing " + answer + "! Play again?");
 		} else if (doesGameContinue() === true && isSubmissionCorrect(currentSubmission, answer) === false) {
-			giveGuessFeedback(currentSubmission, answer);
+			giveGuessFeedback(currentSubmission, answer, previousGuessesArray);
 			$("#input").val("");
 		} else if (doesGameContinue() === false && isSubmissionCorrect(currentSubmission, answer) === true) {
 			endGame("You got " + answer + " on the last go! Play again?");

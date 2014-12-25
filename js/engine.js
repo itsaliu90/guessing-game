@@ -12,6 +12,7 @@ var currentSubmission;
 
 $("#guesses").text(remainingGuesses);
 $("#feedback").text("Ready to start when you are...");
+$("#epic-win").hide();
 
 // functions below
 
@@ -87,12 +88,14 @@ function decreaseRemainingGuesses() {
 function endGame(message) {
 	$("#submit").hide();
 	$("#hint").hide();
+	$("#epic-win").toggle();
 	$feedback.text(message);
 }
 
 function resetGame(message) {
 	remainingGuesses = guessLimit;
 	resetPreviousGuesses();
+	$("#epic-win").toggle();
 	$("#input").val("");
 	$feedback.text(message);
 	$("#guesses").text(remainingGuesses);

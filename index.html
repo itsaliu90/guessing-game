@@ -18,9 +18,10 @@
   </head>
   <body>
     <h1>The Greatest Guessing Game of All Time</h1>
-    <form role="form">
+    <form role="form" id="target">
       <div class="form-group">
         <input id="input" type="text" class="form-control" placeholder="Enter a guess between 1 and 100 here">
+        <button id="submit" type="button" class="btn btn-success">Submit!</button>
       </div>
     </form>
 
@@ -38,7 +39,6 @@
       <p>==================================</p>
     </div>
 
-    <button id="submit" type="button" class="btn btn-success">Submit!</button>
     <button id="play-again" type="button" class="btn btn-primary">Play Again</button>
     <button id="hint" type="button" class="btn btn-danger">I Give Up</button>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

@@ -103,7 +103,8 @@ function resetGame(message) {
 
 // event-driven code below
 
-$("#submit").on("click", function() {
+$("#target").on("submit", function analyze() {
+	event.preventDefault();
 	currentSubmission = $("#input").val();
 	if (currentSubmission > 0 && currentSubmission <= 100 && isSubmissionUnique(previousGuessesArray, currentSubmission) === true) {
 		decreaseRemainingGuesses();
@@ -121,6 +122,10 @@ $("#submit").on("click", function() {
 	} else {
 		giveValidationFeedback();
 	}
+});
+
+$("#submit").click(function() {
+	$("#target").submit();
 });
 
 $("#play-again").on("click", function() {
